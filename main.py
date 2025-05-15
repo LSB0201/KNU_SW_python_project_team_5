@@ -1,1 +1,1 @@
-print("init GitHub")
+print("init GitHub!")
