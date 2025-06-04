@@ -64,12 +64,11 @@ marker_json = json.dumps(marker_data, ensure_ascii=False)
 m = folium.Map(location=[35.4, 128.2], zoom_start=8.3)
 map_id = m.get_name()
 
-# 드롭다운 UI 추가
-with open("dropdown_ui.html", "r", encoding="utf-8") as f:
-    dropdown_html = f.read()
-dropdown = MacroElement()
-dropdown._template = Template(dropdown_html)
-m.get_root().add_child(dropdown)
+with open("combined_filter_ui.html", "r", encoding="utf-8") as f:
+    filter_ui_html = f.read()
+filter_ui = MacroElement()
+filter_ui._template = Template(filter_ui_html)
+m.get_root().add_child(filter_ui)
 
 # 필터 스크립트 추가
 with open("marker_filter_script.html", "r", encoding="utf-8") as f:
@@ -82,4 +81,4 @@ m.get_root().add_child(filter_script)
 # 지도 저장
 save_path = os.path.join(os.path.expanduser("~"), "Downloads", "gyeongbuk_map.html")
 m.save(save_path)
-print(f"지도 저장 완료: {save_path}")
+print(f" ✅ 지도 저장 완료: {save_path}")

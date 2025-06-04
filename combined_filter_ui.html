@@ -1,0 +1,109 @@
+{% macro html(this, kwargs) %}
+<style>
+  #filterBox {
+    position: fixed;
+    top: 13px;
+    left: 80px;
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+    padding: 12px;
+    border: 2px solid gray;
+    border-radius: 6px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  #filterBox label {
+    font-weight: bold;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  #citySelect,
+  #datePicker {
+    width: 180px;
+    padding: 4px;
+    border: 1px solid gray;
+    border-radius: 6px; /* 둥근 모서리 추가 */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* 살짝 음영 */
+    outline: none;
+  }
+</style>
+
+<!-- Litepicker 라이브러리 불러오기 -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+
+<div id="filterBox">
+  <div>
+    <label for="citySelect">경북 시/군 선택:</label>
+    <select id="citySelect">
+      <option value="" disabled selected hidden>시/군 선택</option>
+      <option value="전체">전체</option>
+      <option value="경산시">경산시</option>
+      <option value="경주시">경주시</option>
+      <option value="구미시">구미시</option>
+      <option value="김천시">김천시</option>
+      <option value="문경시">문경시</option>
+      <option value="상주시">상주시</option>
+      <option value="안동시">안동시</option>
+      <option value="영주시">영주시</option>
+      <option value="영천시">영천시</option>
+      <option value="포항시">포항시</option>
+      <option value="의성군">의성군</option>
+      <option value="칠곡군">칠곡군</option>
+      <option value="청송군">청송군</option>
+    </select>
+  </div>
+
+  <div>
+    <label for="datePicker">기간 선택:</label>
+    <input
+      type="text"
+      id="datePicker"
+      placeholder="날짜 범위 선택"
+      style="width: 180px; padding: 4px; text-align: center; border-radius: 6px"
+    />
+  </div>
+</div>
+
+<script>
+  const picker = new Litepicker({
+    element: document.getElementById("datePicker"),
+    singleMode: false,
+    format: "YYYY-MM-DD",
+    numberOfMonths: 1,
+    numberOfColumns: 1,
+    lang: "ko",
+    dropdowns: {
+      minYear: 2024,
+      maxYear: 2025,
+      months: true,
+      years: true,
+    },
+    setup: (picker) => {
+      picker.on("selected", (startDate, endDate) => {
+        const start = startDate.format("YYYY년 M월 D일");
+        const endMonth = endDate.format("M월");
+        const endDay = endDate.format("D일");
+
+        // 👉 input에 직접 텍스트 삽입 (포맷 커스텀)
+        document.getElementById(
+          "datePicker"
+        ).value = `${start} ~ ${endMonth} ${endDay}`;
+
+        console.log(`✅ 선택된 날짜 범위: ${start} ~ ${endMonth} ${endDay}`);
+
+        // 👉 여기서 필터링 로직 호출 가능
+        // showMarkersByDateRange(startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"));
+      });
+    },
+  });
+</script>
+{% endmacro %}
