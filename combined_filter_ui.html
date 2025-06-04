@@ -93,15 +93,20 @@
         const endMonth = endDate.format("M월");
         const endDay = endDate.format("D일");
 
-        // 👉 input에 직접 텍스트 삽입 (포맷 커스텀)
+        // 날짜 박스에 표시
         document.getElementById(
           "datePicker"
         ).value = `${start} ~ ${endMonth} ${endDay}`;
 
-        console.log(`✅ 선택된 날짜 범위: ${start} ~ ${endMonth} ${endDay}`);
+        // 날짜 전역 변수 업데이트
+        selectedStartDate = new Date(startDate.format("YYYY-MM-DD"));
+        selectedEndDate = new Date(endDate.format("YYYY-MM-DD"));
 
-        // 👉 여기서 필터링 로직 호출 가능
-        // showMarkersByDateRange(startDate.format("YYYY-MM-DD"), endDate.format("YYYY-MM-DD"));
+        // 현재 선택된 시군 가져오기
+        const currentCity = document.getElementById("citySelect").value || "";
+
+        // 마커 갱신
+        showMarkers(currentCity);
       });
     },
   });

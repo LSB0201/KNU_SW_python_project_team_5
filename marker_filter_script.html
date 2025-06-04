@@ -3,6 +3,9 @@
   const markers = __MARKER_DATA__;
   let mapMarkers = [];
 
+  let selectedStartDate = null;
+  let selectedEndDate = null;
+
   const cityCenters = {
     경산시: [35.825, 128.74],
     경주시: [35.856, 129.224],
@@ -23,30 +26,40 @@
     mapMarkers.forEach((m) => __MAP__.removeLayer(m));
     mapMarkers = [];
 
-    const filtered =
-      cityName === "전체" || cityName === ""
-        ? markers
-        : markers.filter((data) => data.address.includes(cityName));
+    let filtered = markers;
+
+    // 시군 필터링
+    if (cityName && cityName !== "전체") {
+      filtered = filtered.filter((data) => data.address.includes(cityName));
+    }
+
+    // 날짜 필터링
+    if (selectedStartDate && selectedEndDate) {
+      filtered = filtered.filter((data) => {
+        const reportDate = new Date(data.time);
+        return reportDate >= selectedStartDate && reportDate <= selectedEndDate;
+      });
+    }
 
     filtered.forEach((data) => {
       const icon = L.divIcon({
         className: "",
         html: `<div style="
-          background-color: white;
-          border: 2px solid red;
-          border-radius: 50%;
-          width: 40px;
-          height: 40px;
-          text-align: center;
-          line-height: 40px;
-          font-size: 22px;
-          box-shadow: 1px 1px 5px rgba(255,0,0,0.5);
-          user-select: none;
-          pointer-events: auto;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        ">🔥</div>`,
+        background-color: white;
+        border: 2px solid red;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        font-size: 22px;
+        box-shadow: 1px 1px 5px rgba(255,0,0,0.5);
+        user-select: none;
+        pointer-events: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      ">🔥</div>`,
       });
 
       const marker = L.marker([data.lat, data.lng], { icon: icon })
