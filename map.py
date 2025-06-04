@@ -9,7 +9,7 @@ from branca.element import Template, MacroElement
 
 ### ✅ [1] 엑셀 → MySQL 삽입
 
-excel_path = r'C:\Users\이미림\Desktop\python_project\경상북도_화재_정보.xlsx'
+excel_path = os.path.join("data", "경상북도_화재_정보.xlsx")
 df = pd.read_excel(excel_path)
 
 df = df.rename(columns={
