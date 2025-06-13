@@ -2,6 +2,7 @@ import requests
 import urllib3
 import mysql.connector
 from datetime import datetime
+from env_loader import API_KEY, TABLE_WILDFIRE
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
