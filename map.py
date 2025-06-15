@@ -45,19 +45,34 @@ conn = pymysql.connect(
     port=db_config['port'],
     charset='utf8mb4'
 )
-sql = "SELECT report_time, address, latitude, longitude FROM fire_reports"
-df = pd.read_sql(sql, conn)
+sql_fire = "SELECT report_time, address, latitude, longitude FROM fire_reports"
+df_fire = pd.read_sql(sql_fire, conn)
+
+sql_station = "SELECT name, location, latitude, longitude FROM fire_station_test"
+df_station = pd.read_sql(sql_station, conn)
 conn.close()
 
 # 마커 데이터 JSON으로 변환
 marker_data = []
-for _, row in df.iterrows():
+# 화재 데이터 마커 (빨간색)
+for _, row in df_fire.iterrows():
     marker_data.append({
+        "type": "fire",
         "address": row["address"],
         "lat": row["latitude"],
         "lng": row["longitude"],
         "time": str(row["report_time"])
     })
+# 소방서 데이터 마커 (파란색)
+for _, row in df_station.iterrows():
+    marker_data.append({
+        "type": "station",
+        "address": row["location"],
+        "lat": row["latitude"],
+        "lng": row["longitude"],
+        "name": row["name"]
+    })
+
 marker_json = json.dumps(marker_data, ensure_ascii=False)
 
 # 지도 생성
