@@ -48,7 +48,8 @@ conn = pymysql.connect(
 sql_fire = "SELECT report_time, address, latitude, longitude FROM fire_reports"
 df_fire = pd.read_sql(sql_fire, conn)
 
-sql_station = "SELECT name, location, latitude, longitude FROM fire_station_test"
+sql_station = "SELECT name, location, phone, latitude, longitude FROM fire_station_test"
+
 df_station = pd.read_sql(sql_station, conn)
 conn.close()
 
@@ -68,6 +69,7 @@ for _, row in df_station.iterrows():
     marker_data.append({
         "type": "station",
         "address": row["location"],
+        "phone": row["phone"],
         "lat": row["latitude"],
         "lng": row["longitude"],
         "name": row["name"]

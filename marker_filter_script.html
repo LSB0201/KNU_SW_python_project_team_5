@@ -97,7 +97,7 @@
             justify-content: center;
           ">🚒</div>`,
         });
-        popupHtml = `🚒 소방서: ${data.name}<br>📍 ${data.address}`;
+        popupHtml = `🚒 소방서: ${data.name}<br>📍 ${data.address}<br>📞 ${data.phone}`;
       }
 
       const marker = L.marker([data.lat, data.lng], { icon: icon })
