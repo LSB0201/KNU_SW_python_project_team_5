@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>경북 산불 & 소방서 위치 지도</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    #filter-ui {
+      position: absolute; top: 10px; left: 50px; z-index: 1000;
+      background: rgba(255, 255, 255, 0.95); padding: 12px;
+      border-radius: 8px; box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    }
+    #map { width: 100vw; height: 100vh; }
+    label, select, input { margin-right: 8px; margin-bottom: 5px; }
+
+    /* 이모지 마커 스타일 */
+    .wildfire-icon {
+      font-size: 36px;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .firestation-icon {
+      font-size: 34px;
+      text-align: center;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="filter-ui">
+    <label for="citySelect">경북 시/군 선택:</label>
+    <select id="citySelect">
+      <option value="" disabled selected hidden>시/군 선택</option>
+      <option value="전체">전체</option>
+      <option value="경산시">경산시</option>
+      <option value="경주시">경주시</option>
+      <option value="구미시">구미시</option>
+      <option value="김천시">김천시</option>
+      <option value="문경시">문경시</option>
+      <option value="상주시">상주시</option>
+      <option value="안동시">안동시</option>
+      <option value="영주시">영주시</option>
+      <option value="영천시">영천시</option>
+      <option value="포항시">포항시</option>
+      <option value="의성군">의성군</option>
+      <option value="칠곡군">칠곡군</option>
+      <option value="청송군">청송군</option>
+    </select>
+    <label for="start-date">시작일:</label>
+    <input type="date" id="start-date" />
+    <label for="end-date">종료일:</label>
+    <input type="date" id="end-date" />
+    <button id="search-btn">검색</button>
+  </div>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="js/combined_filter_ui.js"></script>
+  <script src="js/marker_filter_script.js"></script>
+</body>
+</html>
