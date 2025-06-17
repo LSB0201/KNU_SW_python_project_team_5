@@ -2,7 +2,7 @@ import pandas as pd
 import mysql.connector
 
 # 1) 엑셀 파일 경로 지정
-excel_path = "fire_station_with_coords.xlsx"
+excel_path = r"C:\Python_Code\KNU_SW_python_project_team_5\backend\fire_station_with_coords.xlsx"
 
 # 2) 엑셀 읽기
 df = pd.read_excel(excel_path)

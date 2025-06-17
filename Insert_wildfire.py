@@ -3,6 +3,7 @@ import urllib3
 import mysql.connector
 from datetime import datetime
 from env_loader import API_KEY, TABLE_WILDFIRE
+from db_connection import get_connection
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -45,8 +46,6 @@ gyeongsangbukdo_data = [
 
 print(f"\n경상북도 전체 데이터 개수: {len(gyeongsangbukdo_data)}")
 
-from db_connection import get_connection
-from env_loader import API_KEY, TABLE_WILDFIRE
 def extract_region(address: str) -> str:
     """주소에서 시 또는 군 추출 (ex. '경산시', '상주시')"""
     try:
