@@ -60,7 +60,7 @@ AWS를 사용하지 않고도 **외부에서 안전하게 서버 접근**하기 
 
 ```
 KNU_SW_python_project_team_5/
-├── main/                      # 앱 실행 및 통합 제어
+├── main/                     # 앱 실행 및 통합 제어
 ├── frontend/                 # 사용자 UI
 │   ├── map.html              # 지도 시각화 메인 페이지
 │   └── js/
