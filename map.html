@@ -3,60 +3,246 @@
 <head>
   <meta charset="UTF-8" />
   <title>경북 산불 & 소방서 위치 지도</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-  <style>
-    body { margin: 0; font-family: Arial, sans-serif; }
-    #filter-ui {
-      position: absolute; top: 10px; left: 50px; z-index: 1000;
-      background: rgba(255, 255, 255, 0.95); padding: 12px;
-      border-radius: 8px; box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
-    }
-    #map { width: 100vw; height: 100vh; }
-    label, select, input { margin-right: 8px; margin-bottom: 5px; }
 
-    /* 이모지 마커 스타일 */
-    .wildfire-icon {
-      font-size: 36px;
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Sans KR', Arial, sans-serif;
+    }
+
+    #filter-ui {
+      position: absolute;
+      top: 13px;
+      left: 100px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 20px;
+      padding-top: 13px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    }
+
+    #map {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    label {
+      font-weight: 500;
+      margin-right: 6px;
+      margin-bottom: 5px;
+    }
+
+    .date-input {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: white;
+      margin-right: 8px;
+      margin-bottom: 5px;
+      width: 120px;
       text-align: center;
-      line-height: 1;
+    }
+
+    .flatpickr-day,
+    .flatpickr-prev-month,
+    .flatpickr-next-month,
+    .flatpickr-monthDropdown-months,
+    .flatpickr-yearDropdown-months {
+      cursor: pointer;
+    }
+
+    .custom-select {
+      position: relative;
+      display: inline-block;
+      width: 120px;
+      margin-right: 7px;
+      font-size: 15px;
+    }
+
+    .custom-select .selected {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 6px 12px;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .select-text {
+      flex: 1;
+    }
+
+    .select-arrow {
+      font-size: 12px;
+    }
+
+    .custom-select .options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 4px;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+      z-index: 9999;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .custom-select .options li {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .custom-select .options li:hover {
+      background-color: #f0f0f0;
+    }
+
+    .wildfire-icon {
+      background-color: white;
+      border: 6px solid red;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
     }
 
     .firestation-icon {
-      font-size: 34px;
-      text-align: center;
-      line-height: 1;
+      background-color: white;
+      border: 2px solid blue;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
     }
   </style>
 </head>
 <body>
   <div id="filter-ui">
     <label for="citySelect">경북 시/군 선택:</label>
-    <select id="citySelect">
-      <option value="" disabled selected hidden>시/군 선택</option>
-      <option value="전체">전체</option>
-      <option value="경산시">경산시</option>
-      <option value="경주시">경주시</option>
-      <option value="구미시">구미시</option>
-      <option value="김천시">김천시</option>
-      <option value="문경시">문경시</option>
-      <option value="상주시">상주시</option>
-      <option value="안동시">안동시</option>
-      <option value="영주시">영주시</option>
-      <option value="영천시">영천시</option>
-      <option value="포항시">포항시</option>
-      <option value="의성군">의성군</option>
-      <option value="칠곡군">칠곡군</option>
-      <option value="청송군">청송군</option>
-    </select>
+    <div class="custom-select" id="citySelect">
+      <div class="selected">
+        <span class="select-text">시/군 선택</span>
+        <span class="select-arrow">▼</span>
+      </div>
+      <ul class="options">
+        <li data-value="전체">전체</li>
+        <li data-value="경산시">경산시</li>
+        <li data-value="경주시">경주시</li>
+        <li data-value="구미시">구미시</li>
+        <li data-value="김천시">김천시</li>
+        <li data-value="문경시">문경시</li>
+        <li data-value="상주시">상주시</li>
+        <li data-value="안동시">안동시</li>
+        <li data-value="영주시">영주시</li>
+        <li data-value="영천시">영천시</li>
+        <li data-value="포항시">포항시</li>
+        <li data-value="의성군">의성군</li>
+        <li data-value="칠곡군">칠곡군</li>
+        <li data-value="청송군">청송군</li>
+      </ul>
+    </div>
+
     <label for="start-date">시작일:</label>
-    <input type="date" id="start-date" />
+    <input type="text" id="start-date" class="date-input" placeholder="연도‑월‑일" readonly />
+
     <label for="end-date">종료일:</label>
-    <input type="date" id="end-date" />
-    <button id="search-btn">검색</button>
+    <input type="text" id="end-date" class="date-input" placeholder="연도‑월‑일" readonly />
   </div>
+
   <div id="map"></div>
+
+  <!-- ✅ JS 로딩 -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="js/combined_filter_ui.js"></script>
+  <script src="js/update_markers.js"></script>
   <script src="js/marker_filter_script.js"></script>
+  <script>
+    flatpickr("#start-date", {
+      locale: "ko",
+      dateFormat: "Y-m-d",
+      allowInput: false,
+      onChange: triggerDateFilter
+    });
+
+    flatpickr("#end-date", {
+      locale: "ko",
+      dateFormat: "Y-m-d",
+      allowInput: false,
+      onChange: triggerDateFilter
+    });
+
+    const selectBox = document.getElementById('citySelect');
+    const selected = selectBox.querySelector('.selected');
+    const options = selectBox.querySelector('.options');
+    const optionItems = options.querySelectorAll('li');
+
+    selected.addEventListener('click', () => {
+      options.style.display = options.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // ✅ 드롭다운 선택 시 즉시 반영
+    optionItems.forEach(option => {
+      option.addEventListener('click', () => {
+        const selectedRegion = option.dataset.value;
+
+        // 드롭다운 UI 업데이트
+        selected.innerHTML = `
+          <span class="select-text">${option.textContent}</span>
+          <span class="select-arrow">▼</span>
+        `;
+        selected.dataset.value = selectedRegion;
+        options.style.display = 'none';
+
+        // 현재 날짜 값 가져오기
+        const startDate = document.getElementById('start-date').value;
+        const endDate = document.getElementById('end-date').value;
+
+        // 지역 + 날짜 조건 모두 반영
+        updateMapMarkers(selectedRegion, startDate, endDate);
+      });
+    });
+
+    // ✅ 날짜 선택 시 필터 재적용
+    function triggerDateFilter() {
+      const region = selected.dataset.value || "";
+      const startDate = document.getElementById('start-date').value;
+      const endDate = document.getElementById('end-date').value;
+
+      if (typeof updateMapMarkers === 'function') {
+        updateMapMarkers(region, startDate, endDate);
+      }
+    }
+
+    // 외부 클릭 시 드롭다운 닫기
+    document.addEventListener('click', (e) => {
+      if (!selectBox.contains(e.target)) {
+        options.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
