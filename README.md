@@ -1,19 +1,19 @@
-# 프로젝트 명 (수정할 것)
+ <h1 align="center">🔥 여기 불났숲!!</h1>
+<p align="center"><strong>Team 5 - KNU SW Project</strong></p>
 
+> 산불 발생 위치에 따라 가장 가까운 소방서를 자동으로 매핑하고, 지도 기반 시각화 기능을 제공하는 Python 기반 프로젝트입니다.
+
+---
 ## 프로젝트 소개
 - 🗓️**프로젝트 기간**
   <br> 2025/5/18 ~ 2025/6/19 (총 한달)
 
-- 🧶**개발 소개**
-
--  🧑🏻‍💻**사용 언어 및 개발환경**
 
 -  **팀원 소개 및 기여(역할)**
   <p>
   <a href="https://github.com/LSB0201/KNU_SW_python_project_team_5/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=LSB0201/KNU_SW_python_project_team_5" style="zoom: 100%;"/>
 </a>
-
 
 |    팀원    |                      기여                       |
 | :--------: | :---------------------------------------------: |
@@ -22,13 +22,7 @@
 </p>
 <br>
 
- <h1 align="center">🔥 여기 불났숲!!</h1>
-<p align="center"><strong>Team 5 - KNU SW Project</strong></p>
-
-> 산불 발생 위치에 따라 가장 가까운 소방서를 자동으로 매핑하고, 지도 기반 시각화 기능을 제공하는 Python 기반 프로젝트입니다.
-
----
-
+  
 ## 📌 프로젝트 개요
 
 - ⏱️ **산불 API 데이터를 주기적으로 수집** → 매일 오전 3시
@@ -56,28 +50,26 @@
 AWS를 사용하지 않고도 **외부에서 안전하게 서버 접근**하기 위한 선택.
 </details>
 
----
 
 ## 🧩 디렉토리 구조
 
+```
 KNU_SW_python_project_team_5/
-├── main/ # 앱 실행 및 통합 제어
-├── frontend/ # 사용자 UI
-│ ├── map.html # 지도 시각화 메인 페이지
-│ └── js/
-│ ├── combined_filter_ui.js
-│ └── marker_filter_script.js
-├── backend/ # Flask 서버 + DB 연동
-│ ├── .env
-│ ├── db_connection.py
-│ ├── Insert_fire_station.py
-│ ├── Insert_mapping.py
-│ ├── Insert_wildfire.py
-│ └── output_json.py
-├── venv/ # Python 가상환경
-
-
----
+├── main/                      # 앱 실행 및 통합 제어
+├── frontend/                 # 사용자 UI
+│   ├── map.html              # 지도 시각화 메인 페이지
+│   └── js/
+│       ├── combined_filter_ui.js
+│       └── marker_filter_script.js
+├── backend/                  # Flask 서버 + DB 연동
+│   ├── .env
+│   ├── db_connection.py
+│   ├── Insert_fire_station.py
+│   ├── Insert_mapping.py
+│   ├── Insert_wildfire.py
+│   └── output_json.py
+├── venv/                     # Python 가상환경
+```
 
 ## ⚙️ 개발 환경
 
