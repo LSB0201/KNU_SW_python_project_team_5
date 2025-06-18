@@ -23,7 +23,7 @@
 <br>
 
  <h1 align="center">🔥 여기 불났숲!!</h1>
-<p align="center"><strong>Team 5 - KNU SW Capstone</strong></p>
+<p align="center"><strong>Team 5 - KNU SW Project</strong></p>
 
 > 산불 발생 위치에 따라 가장 가까운 소방서를 자동으로 매핑하고, 지도 기반 시각화 기능을 제공하는 Python 기반 프로젝트입니다.
 
