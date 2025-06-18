@@ -15,10 +15,13 @@
   <img src="https://contrib.rocks/image?repo=LSB0201/KNU_SW_python_project_team_5" style="zoom: 100%;"/>
 </a>
 
+
 |    팀원    |                      기여                       |
 | :--------: | :---------------------------------------------: |
-| **olyme** |   내용 넣으삼 |
+| **LSB0201** |   내용 넣으삼 |
 | **pastarobber** |  내용 넣으삼  |
+| **Gang-Choo** |  내용 넣으삼  |
+
 </p>
 <br>
 
