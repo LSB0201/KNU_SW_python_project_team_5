@@ -100,7 +100,8 @@ KNU_SW_python_project_team_5/
 
 <details>
 <summary>📋 fire_station</summary>
-
+ 
+```
 sql
 CREATE TABLE fire_station_test (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -111,8 +112,12 @@ CREATE TABLE fire_station_test (
   longitude DOUBLE,
   region VARCHAR(50)
 );
+```
+
 </details> <details> <summary>📋 wildfire</summary>
-CREATE TABLE wildfire (
+
+```
+ CREATE TABLE wildfire (
   id INT AUTO_INCREMENT PRIMARY KEY,
   location VARCHAR(255),
   occurred_at DATETIME,
@@ -120,8 +125,12 @@ CREATE TABLE wildfire (
   longitude DOUBLE,
   region VARCHAR(50)
 );
+```
+
 </details><details> <summary>📋 mapping_test</summary>
-CREATE TABLE mapping_test (
+
+ ```
+ CREATE TABLE mapping_test (
   wildfire_id INT PRIMARY KEY,
   wildfire_location VARCHAR(255),
   occurred_at DATETIME,
@@ -132,6 +141,8 @@ CREATE TABLE mapping_test (
   fire_station_latitude DOUBLE,
   fire_station_longitude DOUBLE
 );
+```
+
 </details>
 cd C:\Python_Code\KNU_SW_python_project_team_5
 
