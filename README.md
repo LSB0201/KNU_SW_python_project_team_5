@@ -153,14 +153,11 @@ python -m venv venv
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 # 가상환경 실행
-.\venv\Scripts\Activate.ps1
-팀원 소개
-이름	역할
-이성배	프론트엔드와 API 명세 정의 및 통신 구현
-이미림	Folium 지도 시각화 및 산불-소방서 매핑 구현
-추강민	서버 백그라운드 등록, 데이터 파싱 및 저장
-📚 참고 자료
-🔥 공공데이터포털 - 산불정보
+.\venv\Scripts\Activate.ps1  
+ 
+## 📚 참고 자료  
+🔥 공공데이터포털 - 산불정보  
+
 <details>
 <summary>🌐 Tailscale VPN</summary>
  
