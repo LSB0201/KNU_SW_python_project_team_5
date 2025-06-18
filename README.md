@@ -18,10 +18,9 @@
 
 |    팀원    |                      기여                       |
 | :--------: | :---------------------------------------------: |
-| **LSB0201** |   내용 넣으삼 |
-| **pastarobber** |  내용 넣으삼  |
-| **Gang-Choo** |  내용 넣으삼  |
-
+| [pastarobber](https://github.com/pastarobber) | JS 필터 기능 및 UI |
+| [LSB0201](https://github.com/LSB0201) | Flask 서버 및 DB 연동 |
+| [Gang-Choo](https://github.com/Gang-Choo) | 데이터 수집, 전처리, JSON 출력 |
 </p>
 <br>
 
