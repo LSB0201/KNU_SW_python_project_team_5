@@ -49,7 +49,8 @@ function renderMarkers(data) {
       fire_station_longitude,
       wildfire_location,
       occurred_at,
-      fire_station_name
+      fire_station_name,
+      fire_station_phone
     } = item;
 
     // 🔥 산불 마커
@@ -62,7 +63,11 @@ function renderMarkers(data) {
     const fireStationMarker = L.marker([fire_station_latitude, fire_station_longitude], {
       icon: fireStationIcon
     }).addTo(map);
-    fireStationMarker.bindPopup(`<b>🚒 소방서:</b><br>${fire_station_name}`);
+
+    fireStationMarker.bindPopup(`
+      <b>🚒 소방서:</b><br>${fire_station_name}<br>
+      <b>📞:</b> ${fire_station_phone}
+    `);
 
     // 저장
     markers.push(wildfireMarker, fireStationMarker);
