@@ -1,31 +1,34 @@
-from flask import Flask, request, jsonify, send_from_directory
+import os
+from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 from db_connection import get_connection
 from env_loader import TABLE_MAPPING
-import os
-from flask_cors import CORS
 
-app = Flask(__name__)
+# 경로 설정
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.join(BASE_DIR, '..', 'frontend')
+
+# Flask 앱 생성
+app = Flask(
+    __name__,
+    static_folder=FRONTEND_DIR,
+    static_url_path="",
+    template_folder=FRONTEND_DIR
+)
 CORS(app)
 
-# 🔹 정적 HTML 파일(map.html) 서빙
-@app.route('/')
+# HTML 서빙
+@app.route("/")
 def serve_main():
-    return send_from_directory('../frontend', 'map.html')
+    return render_template("map.html")
 
-# 🔹 JS 파일(js/*.js) 서빙
-@app.route('/js/<path:filename>')
-def serve_js(filename):
-    return send_from_directory('../frontend/js', filename)
-
-# 🔹 API: 필터 조건에 따라 DB에서 산불 + 소방서 정보 조회
+# API
 @app.route("/api/mapping", methods=["POST"])
 def get_mapping_data():
     data = request.json
     region = data.get("region")
     start_date = data.get("start_date")
     end_date = data.get("end_date")
-
-    # 디버깅용 로그 출력
     print("검색 요청 도착:", region, start_date, end_date)
 
     like_region = "%" if region == "전체" else f"%{region}%"
@@ -35,7 +38,7 @@ def get_mapping_data():
             wildfire_latitude, wildfire_longitude,
             fire_station_latitude, fire_station_longitude,
             wildfire_location, occurred_at,
-            fire_station_name
+            fire_station_name, fire_station_phone
         FROM {TABLE_MAPPING}
         WHERE wildfire_location LIKE %s
           AND occurred_at BETWEEN %s AND %s
@@ -46,8 +49,7 @@ def get_mapping_data():
         cursor = conn.cursor(dictionary=True)
         cursor.execute(query, (like_region, start_date, end_date))
         result = cursor.fetchall()
-
-        print(f"결과 데이터 수: {len(result)}")  # 디버깅용 출력
+        print(f"결과 데이터 수: {len(result)}")
         return jsonify(result)
 
     except Exception as e:
@@ -58,5 +60,6 @@ def get_mapping_data():
         cursor.close()
         conn.close()
 
+# 실행
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

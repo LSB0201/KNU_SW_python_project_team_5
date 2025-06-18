@@ -36,10 +36,10 @@ for fire in wildfires:
         REPLACE INTO {TABLE_MAPPING} (
             wildfire_id, wildfire_location, occurred_at,
             wildfire_latitude, wildfire_longitude,
-            fire_station_id, fire_station_name,
+            fire_station_id, fire_station_name, fire_station_phone,
             fire_station_latitude, fire_station_longitude
         )
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """, (
         fire_id,
         fire['location'],
@@ -48,6 +48,7 @@ for fire in wildfires:
         fire['longitude'],
         nearest['id'],
         nearest['name'],
+        nearest['phone'],
         nearest['latitude'],
         nearest['longitude']
     ))
