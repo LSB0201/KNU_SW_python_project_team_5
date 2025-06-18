@@ -117,7 +117,7 @@ CREATE TABLE fire_station_test (
 </details> <details> <summary>📋 wildfire</summary>
 
 ```
- CREATE TABLE wildfire (
+ CREATE TABLE wildfire_test (
   id INT AUTO_INCREMENT PRIMARY KEY,
   location VARCHAR(255),
   occurred_at DATETIME,
@@ -139,7 +139,8 @@ CREATE TABLE fire_station_test (
   fire_station_id INT,
   fire_station_name VARCHAR(100),
   fire_station_latitude DOUBLE,
-  fire_station_longitude DOUBLE
+  fire_station_longitude DOUBLE,
+  fire_station_phone VARCHAR(20)
 );
 ```
 
